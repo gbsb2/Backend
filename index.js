@@ -9,6 +9,7 @@ const tree = require('./routes/tree')
 const spellCheck = require('./routes/spellCheck')
 const indexRouter = require("./routes/indexRouter");
 const userRouter = require('./routes/userRouter');
+const quizRouter = require('./routes/quizRouter')
 
 
 // 미들웨어 설정
@@ -29,6 +30,7 @@ app.use("/tree", tree)
 app.use("/", spellCheck)
 app.use("/", indexRouter);
 app.use("/user", userRouter); // 예: /user 경로에서 userRouter 사용
+app.use("/quiz", quizRouter)
 
 // 서버 시작
 const PORT = process.env.PORT || 3000;

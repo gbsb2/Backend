@@ -1,8 +1,8 @@
 const express = require('express')
-const {main, spellcheck} = require("../controller/spellCheck")
+const {spellcheck} = require("../controller/spellCheck")
+const { authenticateJWT } = require("../middlewares/auth");
 const router = express.Router()
 
-router.get("/", main)
-router.post("/", spellcheck)
+router.post("/", authenticateJWT, spellcheck)
 
 module.exports = router

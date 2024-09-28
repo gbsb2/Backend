@@ -1,9 +1,9 @@
 // Quiz 스키마 정의
 
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 /**@type { mongoose.Schema } */
-const quizSchema = new Schema({
+const quizSchema = new mongoose.Schema({
     question: {
         type: Array,
         required: true,
@@ -18,4 +18,4 @@ const quizSchema = new Schema({
 /**@type { mongoose.Model } */
 const Quiz = mongoose.model('Quiz', quizSchema);
 
-export default Quiz
+module.exports = Quiz

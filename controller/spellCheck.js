@@ -1,16 +1,19 @@
 const hs = require("hanspell")
+const SpellingCheckLog = require("../schema/spellCheck")
 
-module.main = async (req,res) => {
-    res.send()
-}
-
-module.spellcheck = async (req,res) => {
+exports.spellcheck = async (req,res) => {
     const data = []
     save = (d) => {
         data.append(d)
     }
     
     send = () => {
+        if (req.user != undefined)
+        SpellingCheckLog(
+            req.user.userId,
+            req.body.sentence,
+            data,
+        )
         res.status(200).json({
             result: data
         })
@@ -24,4 +27,8 @@ module.spellcheck = async (req,res) => {
     }
     hs.spellCheckByDAUM(req.body.sentence, save, send, error)
     hs.spellCheckByPNU(req.body.sentence, save, send, error)
+}
+
+exports.checklog = async (req,res) => {
+
 }
