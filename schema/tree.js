@@ -1,29 +1,29 @@
+const mongoose = require("mongoose");
+
 // Tree 스키마 정의
-const treeSchema = new Schema({
+/*
+* @type {}
+*/
+const treeSchema = new mongoose.Schema({
     userId: {
-        type: Schema.Types.ObjectId, // 사용자 ID를 참조
+        type: mongoose.Schema.Types.ObjectId, // 사용자 ID를 참조
         ref: 'User',
         required: true,
     },
-    growthExperience: {
-        usageCount: {
-            type: Number,
-            default: 0, // 사용 횟수
-        },
-        bonusPoints: {
-            type: Number,
-            default: 0, // 다 맞으면 가산점
-        }
+    exp: {
+        type: Number,
+        default: 0,
     },
-    fruitExperience: {
+    fruitExp: {
         type: Number,
         default: 0, // 열매 경험치
-    },
-    quizCorrectCount: {
-        type: Number,
-        default: 0, // 퀴즈 맞은 횟수
     }
 });
 
 // Tree 모델 생성
+/**
+ * @type {mongoose.Model}
+ */
 const Tree = mongoose.model('Tree', treeSchema);
+
+module.exports = Tree
