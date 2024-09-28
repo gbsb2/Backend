@@ -10,7 +10,7 @@ exports.getQuiz = async (req, res) => {
         if (quiz) {
             const wordList = quiz.question
 
-            res.status(200).json({ words: wordList, index });
+            res.status(200).json({ words: wordList, index, id});
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });
         }
