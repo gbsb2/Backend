@@ -8,12 +8,11 @@ exports.getQuiz = async (req, res) => {
     try {
         const quiz = await Quiz.findOne({id});
         if (quiz) {
-            const wordList = quiz.question.split(' ');
-
+            const wordList = quiz.question
             if (index < 0 || index >= wordList.length) {
                 return res.status(400).end()
             }
-            
+
             res.status(200).json({ words: wordList, index : index });
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });
