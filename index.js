@@ -11,6 +11,7 @@ const indexRouter = require("./routes/indexRouter");
 const userRouter = require('./routes/userRouter');
 const quizRouter = require('./routes/quizRouter')
 const userInfoRouter = require('./routes/userInfoRouter')
+const gemini = require('./routes/geminiRouter');
 
 
 // 미들웨어 설정
@@ -33,6 +34,7 @@ app.use("/", spellCheck)
 app.use("/user", userRouter); // 예: /user 경로에서 userRouter 사용
 app.use("/quiz", quizRouter)
 app.use("/info", userInfoRouter)
+app.use("/gemini", gemini)
 
 // 서버 시작
 const PORT = process.env.PORT || 3000;
