@@ -1,12 +1,13 @@
 const axios = require('axios');
 const User = require('../schema/user');
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 // 퀴즈 조회
 exports.info = async (req, res) => {
-        const {userID} = req.body
+    const {userID} = req.user
+    
     try {
 
-        const user = await User.findOne({ userID : userID})
+        const user = await User.findById(userID)
         if (user) {
             res.status(200).json({
                 name : user.username,

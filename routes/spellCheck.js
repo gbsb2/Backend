@@ -5,6 +5,6 @@ const router = express.Router()
 
 router.post("/", optionalAuthentication, spellcheck.spellcheck);
 
-router.post("/log/:userID", authenticateJWT, spellcheck.checklog);
+router.post("/log", authenticateJWT, spellcheck.checklog);
 
 module.exports = router

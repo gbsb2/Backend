@@ -67,7 +67,7 @@ exports.spellcheck = async (req,res) => {
 }
 exports.checklog = async (req, res) => {
     try {
-        const { userID } = req.params;
+        const { userID } = req.user;
 
         //url파라미터 userID와 로그인된 userID가 일치하는지 검사
         // if(userID != req.user.userID) {
@@ -75,7 +75,7 @@ exports.checklog = async (req, res) => {
         // }
 
         // userID에 해당하는 사용자의 기록 조회
-        const targetUser = await User.findOne({ userID : userID });
+        const targetUser = await User.findById(userID);
         if(!targetUser) {
             return res.status(404).json({ message : "사용자를 찾을 수 없습니다."})
         }

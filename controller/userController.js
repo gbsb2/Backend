@@ -1,6 +1,6 @@
 const User = require("../schema/user"); // User 모델 가져오기
+const Tree = require("../schema/tree")
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const {
     generateAccessToken,
     generateRefreshToken,
