@@ -1,5 +1,10 @@
 // Quiz 스키마 정의
 const quizSchema = new Schema({
+    id : {
+        type : Schema.Types.ObjectId,
+        required : true,
+        unique : true
+    },
     question: {
         type: String,
         required: true,
