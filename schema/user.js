@@ -16,3 +16,6 @@ const userSchema = new Schema({
 
 // User 모델 생성
 const User = mongoose.model('User', userSchema);
+
+
+module.exports = User;

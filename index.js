@@ -1,20 +1,31 @@
-const express = require("express")
-const app = express()
-// router import
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+require('dotenv').config();
 
+
+// 미들웨어 설정
 app.use(express.json());
-app.use(cors());
 
-// MongoDB 연결
-mongoose.connect('mongodb://127.0.0.1:27017/youtube', {
+// MongoDB 연결 (.env 파일에서 MongoDB URI 가져오기)
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+}).then(() => {
+  console.log('MongoDB connected');
+}).catch((err) => {
+  console.error('MongoDB connection error:', err);
 });
 
-// use router
-app.use()
+// 라우터 사용
+const indexRouter = require("./routes/indexRouter");
+const userRouter = require('./routes/userRouter');
 
-app.listen(3000, () => {
-    console.log("server on in http://localhost:3000");
-    
-})
+app.use("/", indexRouter);
+app.use("/user", userRouter); // 예: /user 경로에서 userRouter 사용
+
+// 서버 시작
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
