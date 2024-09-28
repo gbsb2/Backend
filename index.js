@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI, {
 const indexRouter = require("./routes/indexRouter");
 const userRouter = require('./routes/userRouter');
 const userInfoRouter = require('./routes/userInfoRouter')
+
 app.use("/", indexRouter);
 app.use("/user", userRouter); // 예: /user 경로에서 userRouter 사용
 app.use("/info", userInfoRouter)
