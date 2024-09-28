@@ -6,4 +6,4 @@ const {treeGrow, fruitGrow} = require("../controller/tree")
 router.post("/", treeGrow)
 router.post("/fruit", fruitGrow)
 
-export default router
+module.exports = router
