@@ -8,7 +8,7 @@ exports.info = async (req, res) => {
         const user = await User.findOne({ userID : userID})
         if (user) {
             res.status(200).json({
-                name : user.name,
+                name : user.username,
                 password : user.password,
                 nickname : user.nickname});
         } else {
