@@ -20,10 +20,13 @@ exports.login = async (req, res) => {
 
         // 3. JWT 토큰 발급
         const token = jwt.sign(
-            { userId: user._id, username: user.username },
+            { username: user.username },
             "your_jwt_secret", // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
             { expiresIn: "1h" } // 토큰 유효기간
         );
+        
+        // 액세스 토큰을 Authorization 헤더에 추가
+        res.setHeader("Authorization", `Bearer ${accessToken}`);
 
         // 4. 토큰 반환
         return res.status(200).json({ token });
@@ -54,7 +57,7 @@ exports.signup = async (req, res) => {
         });
 
         await newUser.save();
-        
+
         // 5. 응답으로 회원정보 반환
         return res.status(201).json({ newUser });
 
