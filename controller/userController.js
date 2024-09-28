@@ -23,8 +23,8 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: "Invalid username or password" });
         }
         const payload = { 
-            userID : user.userID
-          };        
+            userID : user._id
+        };        
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
     

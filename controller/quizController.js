@@ -1,4 +1,5 @@
 const axios = require('axios')
+const mongoose = require("mongoose")
 const Quiz = require('../schema/quiz');
 
 // 퀴즈 조회
