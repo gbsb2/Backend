@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
         // 3. JWT 토큰 발급
         const token = jwt.sign(
             { userID: user.userID },
-            "your_jwt_secret", // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
+            process.env.SECRETKEY, // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
             { expiresIn: "1h" } // 토큰 유효기간
         );
 
