@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const {
     generateAccessToken,
     generateRefreshToken,
-    refreshAccessToken,
   } = require("../jwt/index");
 
 exports.login = async (req, res) => {
