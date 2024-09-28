@@ -10,4 +10,7 @@ router.post("/login", userController.login);
 //회원가입API 호출
 router.post("/signup", userController.signup);
 
+//로그아웃API호출
+router.post("/logout", userController.logout);
+
 module.exports = router;

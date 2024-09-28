@@ -78,3 +78,25 @@ exports.signup = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
+exports.logout = async (req, res, next) => {
+    const refreshToken = req.cookies.refreshToken;
+    // 검사1: 토큰이 없을 경우
+    if (!refreshToken) {
+      return res.status(400).json({
+        message: "리프레시 토큰이 쿠키에 존재하지 않습니다."
+      });
+    }
+    // 검사 2: 토큰이 정상적인 토큰이 아닌 경우
+    try {
+      jwt.verify(refreshToken, secretKey); // 토큰 유효성 검증
+    } catch (err) {
+      return res.status(400).json({
+        message : "잘못된 리프레시 토큰입니다."
+      });
+    }
+  
+    // 쿠키 삭제
+    res.clearCookie("refreshToken");
+    res.status(StatusCodes.OK).json({ message: "로그아웃 되었습니다." });
+  };
