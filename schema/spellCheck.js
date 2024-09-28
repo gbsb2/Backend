@@ -17,7 +17,7 @@ const spellingCheckLogSchema = new Schema({
         required: true, // 입력된 내용
     },
     result: {
-        type: String,
+        type: Array,
         required: true, // 검사 결과
     }
 });

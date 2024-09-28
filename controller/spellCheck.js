@@ -9,18 +9,15 @@ exports.spellcheck = async (req,res) => {
     }
     
     send = async () => {
+        var userId = ""
+        const sentence = req.body.sentence
         if (req.user != undefined)
-        await new SpellingCheckLog(
-            req.user.userId,
-            req.body.sentence,
-            data,
-        ).save()
-        else
-        await new SpellingCheckLog(
-            req.user.userId,
-            req.body.sentence,
-            data,
-        ).save()
+            userId = req.user.userID
+        await new SpellingCheckLog({
+            userId,
+            input: sentence,
+            result: data,
+        }).save()
         res.status(200).json({
             result: data
         })
