@@ -30,7 +30,6 @@ mongoose.connect(process.env.MONGO_URI, {
 // use router
 app.use("/tree", tree)
 app.use("/", spellCheck)
-app.use("/", indexRouter);
 app.use("/user", userRouter); // 예: /user 경로에서 userRouter 사용
 app.use("/quiz", quizRouter)
 app.use("/info", userInfoRouter)
