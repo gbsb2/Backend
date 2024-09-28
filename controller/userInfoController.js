@@ -10,7 +10,7 @@ exports.info = async (req, res) => {
             res.status(200).json({
                 name : user.name,
                 password : user.password,
-                email : user.email});
+                nickname : user.nickname});
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });
         }
