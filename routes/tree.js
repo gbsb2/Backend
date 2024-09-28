@@ -6,6 +6,6 @@ const { authenticateJWT } = require("../middlewares/auth");
 
 
 router.post("/", authenticateJWT, treeGrow)
-router.post("/fruit", authenticateJWT, fruitGrow)
+router.post("/fruit", fruitGrow)
 
 module.exports = router
