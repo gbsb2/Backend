@@ -24,7 +24,7 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-replica-set: test-rs
-        mongodb-port: 42069
+        mongodb-port: 27017
 
     - name: Install dependencies
       run: npm install
