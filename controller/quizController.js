@@ -1,15 +1,5 @@
 const axios = require('axios');
-const { body, param, validationResult } = require('express-validator');
 const Quiz = require('../schema/quiz');
-
-const validate = (req, res, next) => {
-    const err = validationResult(req);
-    if (err.isEmpty()) {
-        return next();
-    } else {
-        return res.status(400).json(err.array());
-    }
-};
 
 // 퀴즈 조회
 exports.getQuiz = async (req, res) => {
