@@ -54,4 +54,3 @@ exports.submitQuiz = async (req, res) => {
     }
 };
 
-//인덱스 잘라서 주기
