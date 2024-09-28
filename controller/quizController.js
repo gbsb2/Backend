@@ -16,7 +16,6 @@ exports.getQuiz = async (req, res) => {
                 res.status(404).json({ message : "잘못된 요청입니다."})
             }
         } catch (err) {
-            console.log(err)
             res.status(500).json({message : "잘못된 요청입니다."})
         }
     }
