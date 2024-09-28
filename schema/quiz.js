@@ -1,7 +1,8 @@
 // Quiz 스키마 정의
-const quizSchema = new Schema({
+const mongo = require('mongoose')
+const quizSchema = new mongo.Schema({
     id : {
-        type : Schema.Types.ObjectId,
+        type : String,
         required : true,
         unique : true
     },
@@ -16,7 +17,6 @@ const quizSchema = new Schema({
 });
 
 // Quiz 모델 생성
-/**@type { mongoose.Model } */
-const Quiz = mongoose.model('Quiz', quizSchema);
 
+const Quiz = mongo.model('Quiz', quizSchema);
 module.exports = Quiz
