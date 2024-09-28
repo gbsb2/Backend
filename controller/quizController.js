@@ -1,15 +1,15 @@
 const axios = require('axios')
 const mongoose = require("mongoose")
 const Quiz = require('../schema/quiz');
-const mongoose = require('mongoose')
+
 // 퀴즈 조회
 exports.getQuiz = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const quiz = await Quiz.findOne({id});
+        const quiz = await Quiz.findOne({});
         if (quiz) {
-            const wordList = quiz.question.split(' ');
+            const wordList = quiz.question;
             res.status(200).json({ words: wordList });
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });

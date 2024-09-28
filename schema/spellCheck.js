@@ -10,7 +10,7 @@ const spellingCheckLogSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId, // 사용자 ID를 참조
         ref: 'User',
-        required: true,
+        // required: true,
     },
     input: {
         type: String,
@@ -19,18 +19,6 @@ const spellingCheckLogSchema = new Schema({
     result: {
         type: String,
         required: true, // 검사 결과
-    },
-    incorrectCount: {
-        type: Number,
-        default: 0, // 틀린 개수
-    },
-    incorrectParts: {
-        type: [String], // 틀린 부분 배열
-        default: [], // 기본값은 빈 배열
-    },
-    experienceGained: {
-        type: Number,
-        default: 0, // 증가한 경험치량
     }
 });
 
