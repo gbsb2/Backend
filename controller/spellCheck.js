@@ -39,7 +39,28 @@ exports.spellcheck = async (req,res) => {
     hs.spellCheckByDAUM(req.body.sentence, 6000, save, () => {}, error_)
     hs.spellCheckByPNU(req.body.sentence, 6000, save, send, error)
 }
+exports.checklog = async (req, res) => {
+    try {
+        const { userID } = req.params;
 
-exports.checklog = async (req,res) => {
+        // userID에 해당하는 사용자의 기록 조회
+        const userLog = await SpellingCheckLog.find({ userId: userID });
 
-}
+        // 사용자의 기록이 없을 경우
+        if (!userLog || userLog.length === 0) {
+            return res.status(404).json({ message: "사용자 로그를 찾을 수 없습니다." });
+        }
+
+        // 사용자의 기록이 있을 경우
+        return res.status(200).json({
+            message: "사용자의 맞춤법 검사결과 로그 조회 성공",
+            logs: userLog
+        });
+    } catch (error) {
+        // 에러 발생 시 500 상태 코드 반환
+        return res.status(500).json({
+            message: "서버 에러 발생",
+            error: error.message
+        });
+    }
+};
