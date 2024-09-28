@@ -2,6 +2,11 @@ const Tree = require("../schema/tree")
 
 exports.treeGrow = async (req, res) => {
     const tree = await Tree.findOne({userId: req.user.userId})
+    if (!tree){
+        tree = Tree(req.user.userID)
+        await tree.save()
+    }
+
     res.status(200, {
         exp: tree.exp,
         fruitExp: tree.fruitExp
