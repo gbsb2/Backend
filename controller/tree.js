@@ -15,7 +15,7 @@ exports.treeGrow = async (req, res) => {
 }
 exports.fruitGrow = async (req, res) => {
     try{
-        const tree = await Tree.findOne({userId: req.user.userID})
+        const tree = await Tree.findOne({userId: req.userID})
         tree.fruitExp += 1
         await tree.save()
         res.status(200, {

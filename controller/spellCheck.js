@@ -19,11 +19,21 @@ exports.spellcheck = async (req,res) => {
     
     send = async () => {
         const sentence = req.body.sentence
-        await new SpellingCheckLog({
-            userId: req.user == undefined ? null: (await User.findOne({userID: req.user.userID}))._id,
-            input: sentence,
-            result: data,
-        }).save()
+        if (req.user != undefined) {
+            const uid = (await User.findById(req.user.userID))._id
+            await new SpellingCheckLog({
+                userId: uid,
+                input: sentence,
+                result: data,
+            }).save()
+            const tree = await Tree.findOne({userId: uid})
+            tree.exp += 40
+            await tree.save()
+            return res.status(200).json({
+                result: data,
+                exp: 40
+            })
+        }
         res.status(200).json({
             result: data
         })
@@ -41,13 +51,6 @@ exports.spellcheck = async (req,res) => {
             error: errors
         })
         return
-    }
-    if (req.user != undefined) {
-        const userID = req.user.userID
-        const user = await User.findOne({userID})
-        const tree = await Tree.findOne({userID: user._id})
-        tree.exp += 40
-        await tree.save()
     }
     hs.spellCheckByDAUM(req.body.sentence, 6000, save, () => {}, error_)
     hs.spellCheckByPNU(req.body.sentence, 6000, save, send, error)
