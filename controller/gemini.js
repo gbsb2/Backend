@@ -1,3 +1,7 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+// Access your API key as an environment variable
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
 exports.getGemini = async (req, res) => {
     try {
         // Use Gemini 1.5 model
