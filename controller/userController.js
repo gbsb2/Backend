@@ -68,7 +68,14 @@ exports.signup = async (req, res) => {
             nickname
         });
 
+        const newUserTree = new Tree({
+            userId : newUser._id,
+            exp : 0,
+            fruitExp: 0
+        });
+
         await newUser.save();
+        await newUserTree.save();
 
         // 5. 응답으로 회원정보 반환
         return res.status(201).json({ newUser });
