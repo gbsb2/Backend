@@ -1,21 +1,26 @@
 const hs = require("hanspell")
 const SpellingCheckLog = require("../schema/spellCheck")
 const User = require("../schema/user");
+const Tree = require("../schema/tree")
 
 exports.spellcheck = async (req,res) => {
-    const data = []
+    var data = []
     const errors = []
     save = (d) => {
-        data.push(d)
+        d.map((x) => {
+            return {
+                info:x["info"],
+                suggestions: x['suggestions'],
+                token: x['token']
+            }
+        })
+        data = data.concat(d)
     }
     
     send = async () => {
-        var userId = ""
         const sentence = req.body.sentence
-        if (req.user != undefined)
-            userId = req.user.userID
         await new SpellingCheckLog({
-            userId,
+            userId: req.user == undefined ? null: (await User.findOne({userID: req.user.userID}))._id,
             input: sentence,
             result: data,
         }).save()
@@ -36,6 +41,13 @@ exports.spellcheck = async (req,res) => {
             error: errors
         })
         return
+    }
+    if (req.user != undefined) {
+        const userID = req.user.userID
+        const user = await User.findOne({userID})
+        const tree = await Tree.findOne({userID: user._id})
+        tree.exp += 40
+        await tree.save()
     }
     hs.spellCheckByDAUM(req.body.sentence, 6000, save, () => {}, error_)
     hs.spellCheckByPNU(req.body.sentence, 6000, save, send, error)

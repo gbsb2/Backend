@@ -15,6 +15,7 @@ const userInfoRouter = require('./routes/userInfoRouter')
 
 // 미들웨어 설정
 app.use(express.json());
+app.use(cors())
 
 // MongoDB 연결 (.env 파일에서 MongoDB URI 가져오기)
 mongoose.connect(process.env.MONGO_URI, {
