@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 // User 스키마 정의
 const userSchema = new Schema({
-    username: {
+    userID: {
         type: String,
         required: true,
         unique: true, // 중복검사

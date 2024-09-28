@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
-    const { username, password } = req.body;
+    const { userID, password } = req.body;
 
     try {
         // 1. 사용자 찾기
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ userID });
         if (!user) {
             return res.status(400).json({ message: "Invalid username or password" });
         }
@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
 
         // 3. JWT 토큰 발급
         const token = jwt.sign(
-            { username: user.username },
+            { userID: user.userID },
             "your_jwt_secret", // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
             { expiresIn: "1h" } // 토큰 유효기간
         );
@@ -38,11 +38,11 @@ exports.login = async (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    const { username, password, nickname } = req.body;
+    const { userID, password, nickname } = req.body;
 
     try {
         // 1. 사용자 중복 검사
-        const existingUser = await User.findOne({ username });
+        const existingUser = await User.findOne({ userID });
         if (existingUser) {
             return res.status(400).json({ message: "Username already exists" });
         }
@@ -52,7 +52,7 @@ exports.signup = async (req, res) => {
 
         // 3. 새로운 사용자 생성 및 저장
         const newUser = new User({
-            username,
+            userID,
             password: hashedPassword,
             nickname
         });
