@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 // Tree 스키마 정의
 /*
 * @type {}
 */
-const treeSchema = new Schema({
+const treeSchema = new mongoose.Schema({
     userId: {
-        type: Schema.Types.ObjectId, // 사용자 ID를 참조
+        type: mongoose.Schema.Types.ObjectId, // 사용자 ID를 참조
         ref: 'User',
         required: true,
     },
@@ -26,4 +26,4 @@ const treeSchema = new Schema({
  */
 const Tree = mongoose.model('Tree', treeSchema);
 
-export default Tree
+module.exports = Tree
