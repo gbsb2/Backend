@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
             "your_jwt_secret", // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
             { expiresIn: "1h" } // 토큰 유효기간
         );
-        
+
         // 액세스 토큰을 Authorization 헤더에 추가
         res.setHeader("Authorization", `Bearer ${accessToken}`);
 
@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, nickname } = req.body;
 
     try {
         // 1. 사용자 중복 검사
@@ -53,7 +53,8 @@ exports.signup = async (req, res) => {
         // 3. 새로운 사용자 생성 및 저장
         const newUser = new User({
             username,
-            password: hashedPassword
+            password: hashedPassword,
+            nickname
         });
 
         await newUser.save();
