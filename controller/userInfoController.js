@@ -3,9 +3,9 @@ const User = require('../schema/user');
 const mongoose = require('mongoose')
 // 퀴즈 조회
 exports.info = async (req, res) => {
-        const {username} = req.body
+        const {userID} = req.body
     try {
-        const user = await User.findOne({ username : username })
+        const user = await User.findOne({ userID : userID})
         if (user) {
             res.status(200).json({
                 name : user.name,
