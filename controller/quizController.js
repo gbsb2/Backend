@@ -11,7 +11,7 @@ exports.getQuiz = async (req, res) => {
         if (quiz) {
             const wordList = quiz.question
 
-            res.status(200).json({ words: wordList, index });
+            res.status(200).json({ words: wordList, index, id});
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });
         }
@@ -33,7 +33,7 @@ exports.submitQuiz = async (req, res) => {
         }
         if (quiz.answer == answer) {
             try {
-                const fruitResponse = await axios.post('http://localhost:3000/tree/fruit', user); // 절대 URL로 변경
+                const fruitResponse = await axios.post('http://localhost:8080/tree/fruit', user); // 절대 URL로 변경
                 res.status(200).json({
                     message: "정답입니다."
                 });
