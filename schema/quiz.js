@@ -13,6 +13,10 @@ const quizSchema = new mongo.Schema({
     answer: {
         type: Number,
         required: true,
+    },
+    index : {
+        type: Array,
+        required: true
     }
 });
 

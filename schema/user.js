@@ -16,6 +16,22 @@ const userSchema = new Schema({
     nickname: {
         type: String,
         required: true
+    },
+    count: {
+        type: Number,
+        default: 5
+    },
+    lastUse: {
+        type: Number,
+        default: 0
+    },
+    correctQuiz: {
+        type: Array,
+        default: []
+    },
+    incorrectQuiz: {
+        type: Array,
+        default: []
     }
 });
 

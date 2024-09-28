@@ -19,20 +19,30 @@ exports.spellcheck = async (req,res) => {
     
     send = async () => {
         const sentence = req.body.sentence
+        var exp = 40
         if (req.user != undefined) {
-            const uid = (await User.findById(req.user.userID))._id
+            const user = await User.findById(req.user.userID)
             await new SpellingCheckLog({
-                userId: uid,
+                userId: user._id,
                 input: sentence,
                 result: data,
             }).save()
-            const tree = await Tree.findOne({userId: uid})
-            tree.exp += 40
-            await tree.save()
-            return res.status(200).json({
-                result: data,
-                exp: 40
-            })
+            const tree = await Tree.findOne({userId: user._id})
+            if (Math.abs(new Date().getDate() - user.lastUse) > 0)
+                user.count = 5
+            if (user.count != 0){
+                if (data.length == 0)
+                    exp = 60
+                tree.exp += exp
+                user.count -= 1
+                user.lastUse = new Date().getDate()
+                await user.save()
+                await tree.save()
+                return res.status(200).json({
+                    result: data,
+                    exp: exp
+                })
+            }
         }
         res.status(200).json({
             result: data
@@ -52,7 +62,7 @@ exports.spellcheck = async (req,res) => {
         })
         return
     }
-    hs.spellCheckByDAUM(req.body.sentence, 6000, save, () => {}, error_)
+    // hs.spellCheckByDAUM(req.body.sentence, 6000, save, () => {}, error_)
     hs.spellCheckByPNU(req.body.sentence, 6000, save, send, error)
 }
 exports.checklog = async (req, res) => {
