@@ -7,7 +7,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true, // 중복검사
-    },
+    }, 
     password: {
         type: String,
         required: true,
