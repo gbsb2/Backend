@@ -11,9 +11,6 @@ function authenticateJWT(req, res, next)  {
           if (err) {
             return res.sendStatus(403).send({ message: '토큰 검증 실패' }); // Forbidden: Invalid token
           }
-          if(!allowedRoles.includes(user.role)) {
-            return res.status(403).send({ message: '권한이 없습니다.' });
-          }
 
           req.user = user;
           next(); // 토큰이 유효한 경우, 다음 미들웨어나 라우트 핸들러로 이동
