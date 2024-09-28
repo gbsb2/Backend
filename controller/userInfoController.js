@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 exports.info = async (req, res) => {
         const {userID} = req.body
     try {
+
         const user = await User.findOne({ userID : userID})
         if (user) {
             res.status(200).json({
