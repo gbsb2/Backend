@@ -94,16 +94,8 @@ exports.logout = async (req, res, next) => {
         message: "리프레시 토큰이 쿠키에 존재하지 않습니다."
       });
     }
-    // 검사 2: 토큰이 정상적인 토큰이 아닌 경우
-    try {
-      jwt.verify(refreshToken, secretKey); // 토큰 유효성 검증
-    } catch (err) {
-      return res.status(400).json({
-        message : "잘못된 리프레시 토큰입니다."
-      });
-    }
   
     // 쿠키 삭제
     res.clearCookie("refreshToken");
-    res.status(StatusCodes.OK).json({ message: "로그아웃 되었습니다." });
+    res.status(200).json({ message: "로그아웃 되었습니다." });
   };

@@ -1,5 +1,6 @@
 const express = require("express")
 const mongoose = require('mongoose')
+const cookieParser = require("cookie-parser")
 require('dotenv').config();
 const cors = require('cors')
 const app = express()
@@ -16,6 +17,7 @@ const gemini = require('./routes/geminiRouter');
 
 // 미들웨어 설정
 app.use(express.json());
+app.use(cookieParser())
 app.use(cors())
 
 // MongoDB 연결 (.env 파일에서 MongoDB URI 가져오기)
