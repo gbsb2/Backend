@@ -1,7 +1,8 @@
 // Quiz 스키마 정의
+const mongo = require('mongoose')
 const quizSchema = new Schema({
     id : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         required : true,
         unique : true
     },
