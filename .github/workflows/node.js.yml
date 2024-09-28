@@ -26,6 +26,19 @@ jobs:
         mongodb-replica-set: test-rs
         mongodb-port: 27017
 
+    - name: Generate Environment Variables File for Production
+      run: |
+          echo "MONGO_URI=$MONGO_URI" >> .env.production
+          echo "SECRETKEY=$SECRETKEY" >> .env.production
+          echo "API_KEY=$API_KEY" >> .env.production
+          echo "PORT=$PORT" >> .env.production
+      env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          SECRETKEY: ${{ secrets.SECRETKEY }}
+          API_KEY: ${{ secrets.API_KEY}}
+          PORT: ${{ secrets.PORT }}
+
+
     - name: Install dependencies
       run: npm install
 
