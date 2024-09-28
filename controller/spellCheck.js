@@ -1,5 +1,6 @@
 const hs = require("hanspell")
 const SpellingCheckLog = require("../schema/spellCheck")
+const User = require("../schema/user");
 
 exports.spellcheck = async (req,res) => {
     const data = []
@@ -49,7 +50,11 @@ exports.checklog = async (req, res) => {
         // }
 
         // userID에 해당하는 사용자의 기록 조회
-        const userLog = await SpellingCheckLog.find({ userId: userID });
+        const targetUser = await User.findOne({ userID : userID });
+        if(!targetUser) {
+            return res.status(404).json({ message : "사용자를 찾을 수 없습니다."})
+        }
+        const userLog = await SpellingCheckLog.find({ userId: targetUser._id });
 
         // 사용자의 기록이 없을 경우
         if (!userLog || userLog.length === 0) {
