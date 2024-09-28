@@ -25,9 +25,6 @@ exports.submitQuiz = async (req, res) => {
 
     try {
         const quiz = await Quiz.findOne({id});
-        if (!quiz) {
-            return res.status(404).json({ message: "퀴즈가 없습니다." });
-        }
         if (quiz.answer == answer) {
             try {
                 const fruitResponse = await axios.get('http://your-api-url.com/tree/fruit'); // 절대 URL로 변경
