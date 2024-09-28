@@ -1,6 +1,8 @@
 name: Run tests
 
-on: [push]
+on: 
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -8,14 +10,14 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        mongodb-version: ['4.0', '4.2', '4.4']
+        mongodb-version: ['4.4']
 
     steps:
     - name: Git checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -26,25 +28,11 @@ jobs:
         mongodb-replica-set: test-rs
         mongodb-port: 27017
 
-    - name: Generate Environment Variables File for Production
-      run: |
-          echo "MONGO_URI=$MONGO_URI" >> .env.production
-          echo "SECRETKEY=$SECRETKEY" >> .env.production
-          echo "API_KEY=$API_KEY" >> .env.production
-          echo "PORT=$PORT" >> .env.production
-      env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          SECRETKEY: ${{ secrets.SECRETKEY }}
-          API_KEY: ${{ secrets.API_KEY}}
-          PORT: ${{ secrets.PORT }}
-
-
     - name: Install dependencies
       run: npm install
 
     - name: publish
-    - run: npm ci
-    - run: npm publish --provenance --access public
+    - run: npm start
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
         SECRETKEY: ${{ secrets.SECRETKEY }}
