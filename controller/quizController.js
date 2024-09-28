@@ -31,10 +31,9 @@ exports.submitQuiz = async (req, res) => {
         }
         if (quiz.answer == answer) {
             try {
-                const fruitResponse = await axios.get('http://your-api-url.com/tree/fruit'); // 절대 URL로 변경
+                const fruitResponse = await axios.get('http://localhost/tree/fruit'); // 절대 URL로 변경
                 res.status(200).json({
-                    message: "정답입니다.",
-                    fruitData: fruitResponse.data
+                    message: "정답입니다."
                 });
             } catch (error) {
                 res.status(500).json({
