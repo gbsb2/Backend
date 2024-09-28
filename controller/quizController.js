@@ -5,12 +5,17 @@ const Quiz = require('../schema/quiz');
 // 퀴즈 조회
 exports.getQuiz = async (req, res) => {
     const { id } = req.params;
-
+    const {index} = req.body
     try {
         const quiz = await Quiz.findOne({});
         if (quiz) {
             const wordList = quiz.question;
-            res.status(200).json({ words: wordList });
+
+            if (index < 0 || index >= wordList.length) {
+                return res.status(400).end()
+            }
+            
+            res.status(200).json({ words: wordList, index : index });
         } else {
             res.status(404).json({ message: "잘못된 요청입니다." });
         }
@@ -52,3 +57,5 @@ exports.submitQuiz = async (req, res) => {
         res.status(500).json({ message: "서버 오류입니다.", error: err });
     }
 };
+
+//인덱스 잘라서 주기
