@@ -43,6 +43,11 @@ exports.checklog = async (req, res) => {
     try {
         const { userID } = req.params;
 
+        //url파라미터 userID와 로그인된 userID가 일치하는지 검사
+        // if(userID != req.user.userID) {
+        //     return res.status(403).json({ message: "접근 권한이 없습니다."});
+        // }
+
         // userID에 해당하는 사용자의 기록 조회
         const userLog = await SpellingCheckLog.find({ userId: userID });
 
