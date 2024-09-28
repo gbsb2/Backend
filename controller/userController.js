@@ -1,6 +1,11 @@
 const User = require("../schema/user"); // User 모델 가져오기
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {
+    generateAccessToken,
+    generateRefreshToken,
+    refreshAccessToken,
+  } = require("../jwt/index");
 
 exports.login = async (req, res) => {
     const { userID, password } = req.body;
@@ -17,19 +22,25 @@ exports.login = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid username or password" });
         }
-
-        // 3. JWT 토큰 발급
-        const token = jwt.sign(
-            { userID: user.userID },
-            process.env.SECRETKEY, // 비밀키 (환경 변수로 관리하는 것이 좋습니다)
-            { expiresIn: "1h" } // 토큰 유효기간
-        );
+        const payload = { 
+            userID : user.userID
+          };
+          const accessToken = generateAccessToken(payload);
+          const refreshToken = generateRefreshToken(payload);
+      
+          res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+          }); //7일
 
         // 액세스 토큰을 Authorization 헤더에 추가
-        res.setHeader("Authorization", `Bearer ${token}`);
+        res.setHeader("Authorization", `Bearer ${accessToken}`);
 
         // 4. 토큰 반환
-        return res.status(200).json({ token });
+        return res.status(200).json({ 
+            message : '로그인 되었습니다.',
+            accessToken 
+        });
 
     } catch (error) {
         console.error(error);
