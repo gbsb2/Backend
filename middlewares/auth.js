@@ -9,7 +9,7 @@ function authenticateJWT(req, res, next)  {
 
         jwt.verify(token, process.env.SECRETKEY, (err, user) => {
           if (err) {
-            return res.sendStatus(403).send({ message: '토큰 검증 실패' }); // Forbidden: Invalid token
+            return res.status(403).send({ message: '토큰 검증 실패' }); // Forbidden: Invalid token
           }
 
           req.user = user;
