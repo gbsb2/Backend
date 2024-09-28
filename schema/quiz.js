@@ -17,4 +17,4 @@ const quizSchema = new mongo.Schema({
 });
 
 // Quiz 모델 생성
-const Quiz = mongoose.model('Quiz', quizSchema);
+const Quiz = mongo.model('Quiz', quizSchema);
