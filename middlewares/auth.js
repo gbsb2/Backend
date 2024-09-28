@@ -16,7 +16,7 @@ function authenticateJWT(req, res, next)  {
           next(); // 토큰이 유효한 경우, 다음 미들웨어나 라우트 핸들러로 이동
         });
       } else {
-        res.sendStatus(401); // Unauthorized: No token provided
+        return res.sendStatus(401); // Unauthorized: No token provided
       }
 }
 
@@ -38,7 +38,7 @@ function optionalAuthentication(req, res, next)  {
       next(); // 토큰이 유효한 경우, 다음 미들웨어나 라우트 핸들러로 이동
     });
   } else {
-    res.sendStatus(401); // Unauthorized: No token provided
+    return next(); // Unauthorized: No token provided
   }
 }
 
