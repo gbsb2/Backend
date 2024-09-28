@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
 
     try {
         // 1. 사용자 찾기
-        const user = await User.findOne({ userID });
+        const user = await User.findOne({ userID : userID });
         if (!user) {
             return res.status(400).json({ message: "Invalid username or password" });
         }
@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
         );
 
         // 액세스 토큰을 Authorization 헤더에 추가
-        res.setHeader("Authorization", `Bearer ${accessToken}`);
+        res.setHeader("Authorization", `Bearer ${token}`);
 
         // 4. 토큰 반환
         return res.status(200).json({ token });
@@ -42,7 +42,7 @@ exports.signup = async (req, res) => {
 
     try {
         // 1. 사용자 중복 검사
-        const existingUser = await User.findOne({ userID });
+        const existingUser = await User.findOne({ userID : userID });
         if (existingUser) {
             return res.status(400).json({ message: "Username already exists" });
         }
