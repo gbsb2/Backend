@@ -19,7 +19,7 @@ exports.spellcheck = async (req,res) => {
     
     send = async () => {
         const sentence = req.body.sentence
-        var exp = 40
+        var exp = 200
         if (req.user != undefined) {
             const user = await User.findById(req.user.userID)
             await new SpellingCheckLog({
@@ -32,7 +32,7 @@ exports.spellcheck = async (req,res) => {
                 user.count = 5
             if (user.count != 0){
                 if (data.length == 0)
-                    exp = 60
+                    exp = 220
                 tree.exp += exp
                 user.count -= 1
                 user.lastUse = new Date().getDate()

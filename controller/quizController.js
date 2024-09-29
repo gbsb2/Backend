@@ -40,7 +40,7 @@ exports.submitQuiz = async (req, res) => {
         if (quiz.answer == answer) {
             try {
                 const fruitResponse = await axios.post('http://localhost:8080/tree/fruit', {id: user._id}); // 절대 URL로 변경
-                // user.correctQuiz.push(id)
+                user.correctQuiz.push(id)
                 await user.save()
                 res.status(200).json({
                     message: "정답입니다."

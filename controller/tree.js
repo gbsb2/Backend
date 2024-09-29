@@ -3,7 +3,6 @@ const User = require("../schema/user")
 
 exports.treeGrow = async (req, res) => {
     var tree = await Tree.findOne({userId: req.user.userID})
-    console.log(tree)
     if (!tree){
         tree = new Tree({userId: req.user.userID})
         await tree.save()
@@ -17,7 +16,7 @@ exports.treeGrow = async (req, res) => {
 exports.fruitGrow = async (req, res) => {
     try{
         const tree = await Tree.findOne({userId: req.body.id})
-        tree.fruitExp += 1
+        tree.exp += 10
         await tree.save()
         res.status(200).json({
             msg: "success"
